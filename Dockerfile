@@ -9,7 +9,8 @@ WORKDIR /build
 COPY . .
 
 # GO initialization - track code dependencies
-RUN go mod init
+
+RUN if [[ -f "/build/go.mod" ]] ; then go mod download ; else go mod init ; fi
 
 # Build the application
 RUN go build -o output-app.o .
